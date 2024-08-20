@@ -12,6 +12,8 @@ def callback(browser, content: DeckBrowserContent) -> None:
     table = table.replace("<th class=count>Due</th>", "<th class=count>Due</th>\n<th class=count>Progress</th>\n<th></th>")
 
     for deck_name_id in mw.col.decks.all_names_and_ids():
+
+        # Yes I am manipulating HTML with regexes. If it breaks I will fix it. Python has no built in HTML manipulator so this is the best I can do
         regex = re.compile(r'%DECK_NAME%.*?(\<td)\ align=center\ class=opts'.replace("%DECK_NAME%", deck_name_id.name), re.MULTILINE | re.DOTALL)
         match = regex.search(table)
 
