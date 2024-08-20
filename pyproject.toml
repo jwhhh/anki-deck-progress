@@ -1,0 +1,31 @@
+[project]
+name = "column"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Richard Hajek", email = "richard.m.hajek@gmail.com" }
+]
+dependencies = [
+    "pip>=24.2",
+    "mypy>=1.11.1",
+    "aqt[qt6]>=2.1.54",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[project.scripts]
+hello = "column:hello"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/column"]
