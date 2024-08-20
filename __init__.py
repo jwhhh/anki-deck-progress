@@ -15,11 +15,11 @@ def callback(browser, content: DeckBrowserContent) -> None:
         regex = re.compile(r'%DECK_NAME%.*?(\<td)\ align=center\ class=opts'.replace("%DECK_NAME%", deck_name_id.name), re.MULTILINE | re.DOTALL)
         match = regex.search(table)
 
-        print(f"Regex: {regex.pattern}")
-        print(f"Deck name: {deck_name_id.name}")
-        print(f"Match: {match}")
-        print(f"Groups: {match.groups()}")
-        print(f"Group start: {match.start(1)}")
+        #print(f"Regex: {regex.pattern}")
+        #print(f"Deck name: {deck_name_id.name}")
+        #print(f"Match: {match}")
+        #print(f"Groups: {match.groups()}")
+        #print(f"Group start: {match.start(1)}")
 
         pre = table[0:match.start(1)]
         post = table[match.start(1):]
@@ -36,7 +36,7 @@ def callback(browser, content: DeckBrowserContent) -> None:
 
     content.tree = table
 
-    print(f"Content tree: {content.tree}")
+    #print(f"Content tree: {content.tree}")
 
 
 deck_browser_will_render_content.append(callback)
