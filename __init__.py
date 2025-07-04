@@ -39,11 +39,11 @@ def callback(browser, content: DeckBrowserContent) -> None:
         are_new = find_num_of_cards(deck_name_id.name, "is:new")
         seen = total_cards - are_new
 
-        # Debug output
-        print(f"Deck: {deck_name_id.name} (ID: {deck_name_id.id})")
-        print(f"  Total cards: {total_cards}")
-        print(f"  New cards: {are_new}")
-        print(f"  Seen cards: {seen}")
+        # # Debug output
+        # print(f"Deck: {deck_name_id.name} (ID: {deck_name_id.id})")
+        # print(f"  Total cards: {total_cards}")
+        # print(f"  New cards: {are_new}")
+        # print(f"  Seen cards: {seen}")
 
         perc = seen / total_cards if total_cards > 0 else 0
         status_perc = f"{perc * 100:0.2f}%"
