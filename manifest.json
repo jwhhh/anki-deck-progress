@@ -1,6 +1,6 @@
 {
-    "name": "Columns",
-    "package": "anki_columns",
+    "name": "Deck Progress Indicator",
+    "package": "anki_deck_progress",
     "ankiweb_id": "",
     "author": "",
     "version": "",
