@@ -21,32 +21,14 @@ def callback(browser, content: DeckBrowserContent) -> None:
 
     for deck_name_id in mw.col.decks.all_names_and_ids():
 
-        # Yes I am manipulating HTML with regexes. If it breaks I will fix it. Python has no built in HTML manipulator so this is the best I can do
-        # Escape special regex characters in deck name
-        escaped_deck_name = re.escape(deck_name_id.name)
-        # Try multiple regex patterns to find the deck row
-        patterns = [
-            r'%DECK_NAME%.*?(\<td)\ align=center\ class=opts',
-            r'%DECK_NAME%.*?(\<td)\ align=center\ class=opts',
-            r'%DECK_NAME%.*?(\<td[^>]*align=center[^>]*class=opts)',
-            r'%DECK_NAME%.*?(\<td[^>]*class=opts)',
-        ]
-        
-        match = None
-        for pattern in patterns:
-            regex = re.compile(pattern.replace("%DECK_NAME%", escaped_deck_name), re.MULTILINE | re.DOTALL)
-            match = regex.search(table)
-            if match:
-                print(f"Found match with pattern: {pattern}")
-                break
+        # Look for the deck row by ID instead of name - this is more reliable
+        # The HTML structure has: <tr class='deck' id='DECK_ID'>
+        deck_id_pattern = rf"<tr[^>]*id='{deck_name_id.id}'[^>]*>.*?(<td[^>]*align=center[^>]*class=opts)"
+        regex = re.compile(deck_id_pattern, re.MULTILINE | re.DOTALL)
+        match = regex.search(table)
         
         if match is None:
-            print(f"No match found for deck: {deck_name_id.name}")
-            # Let's also print a snippet of the table to see what we're working with
-            deck_line_start = table.find(deck_name_id.name)
-            if deck_line_start != -1:
-                snippet = table[deck_line_start:deck_line_start + 200]
-                print(f"Table snippet around deck name: {snippet}")
+            print(f"No match found for deck: {deck_name_id.name} (ID: {deck_name_id.id})")
             continue
 
         pre = table[0:match.start(1)]
